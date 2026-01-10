@@ -37,13 +37,22 @@ in
         ConfigureWithoutCarrier = true;
       };
 
-      bridgeVLANs = [
-        { VLAN = 1;  PVID = true; EgressUntagged = true; }
-        { VLAN = 20; }
-        { VLAN = 30; }
-        { VLAN = 40; }
-        { VLAN = 50; }
-      ];
+      extraConfig = ''
+        [BridgeVLAN]
+        VLAN=1
+        PVID=1
+        EgressUntagged=1
+
+        [BridgeVLAN]
+        VLAN=20
+        [BridgeVLAN]
+        VLAN=30
+        [BridgeVLAN]
+        VLAN=40
+        [BridgeVLAN]
+        VLAN=50
+      '';
+
     };
 
     # WAN (DHCP for testing; later you can change to static if you want)
