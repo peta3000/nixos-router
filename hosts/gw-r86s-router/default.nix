@@ -47,6 +47,9 @@ in
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICozYQT8O5X3hEKU7toJho+r66As0qaCt3nYXR0gRU0j"
   ];
 
+  # Enable tailscale
+  my.tailscale.enable = true;
+
   system.stateVersion = "25.11";
 
 }
