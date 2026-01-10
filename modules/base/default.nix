@@ -1,6 +1,11 @@
 { config, lib, pkgs, ... }:
 {
   time.timeZone = "Europe/Zurich";
+  
+  imports = [
+    ./common/tailscale.nix
+    # other shared modules
+  ];
 
   # Basic admin access
   services.openssh.enable = true;
