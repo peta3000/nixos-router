@@ -40,6 +40,12 @@ in
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
+  
+  # SSH keys for user peter
+  users.users.peter.openssh.authorizedKeys.keys = [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDEP5rIrh/WIZvCS8Tb4xkLtCDQAxs27Guxnxv0BQLs2iIe0kSmM+xXcvNCMSrmbNAzq6boSJsQ4PIVQCaSxNRrhcFH6Q1pY9y7MvbRqT72V++dQQtVKMkoVh4QQ5aobsml8KQx7QS6fuwEtMCE/8yoJPoyh1rqAqSS7/9MvA72Imr8LNdAkECDVkzrn3T8/gGJ9gEYFJrLpmm+lEzIU27P/x1BUQOpPbPMourkKdhSBgvr3LQCugEfzdUfskO8YCHmB+5KkCBXizpIH3QiN1TuZuPAT0ZacMAM1gZcZtEWr04K7hXdDgPCJzxDjfruoiOSqFvBYtdtECAb8AGicFqVuIGzIdYVP5pxWKwUR0LUXpSUKIqqF3gKc0HvSejxJ8NA79a2BS7ef7Plou4GmkfH+NdDti0iaS7pi6aqUTMVgGOvbDVTJT1L8clIdgLPomHL9kXae9EuiGHFSqpEC42FRFcmj30heWttG/OAo4Msbcs+ArruAskHJFN366rXRZM="
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICozYQT8O5X3hEKU7toJho+r66As0qaCt3nYXR0gRU0j"
+  ];
 
   system.stateVersion = "25.11";
 
