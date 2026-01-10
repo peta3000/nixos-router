@@ -30,30 +30,46 @@ in
     # Add LAN ports to the bridge and define per-port VLAN policy:
     # VLAN 1: PVID + untagged (management/LAN by default)
     # VLAN 20/30/40/50: tagged (trunk everywhere initially)
-    systemd.network.networks."lan-ports" = {
-      matchConfig.Name = lib.concatStringsSep " " lanPorts;
-      networkConfig = {
-        Bridge = bridge;
-        ConfigureWithoutCarrier = true;
+
+    # Helper: create a deterministic per-port network config
+    # (More reliable than "Name=a b c", and it wins over generic 99-* defaults.)
+    let
+      mkLanPort = ifname: {
+        matchConfig.Name = ifname;
+        networkConfig = {
+          Bridge = bridge;
+          ConfigureWithoutCarrier = true;
+
+          # LAN ports must not become DHCP clients
+          DHCP = "no";
+          IPv6AcceptRA = false;
+          LinkLocalAddressing = "no";
+        };
+
+        # VLAN 1 untagged everywhere; VLANs 20/30/40/50 tagged everywhere (for now)
+        extraConfig = ''
+          [BridgeVLAN]
+          VLAN=1
+          PVID=1
+          EgressUntagged=1
+
+          [BridgeVLAN]
+          VLAN=20
+          [BridgeVLAN]
+          VLAN=30
+          [BridgeVLAN]
+          VLAN=40
+          [BridgeVLAN]
+          VLAN=50
+        '';
       };
-
-      extraConfig = ''
-        [BridgeVLAN]
-        VLAN=1
-        PVID=1
-        EgressUntagged=1
-
-        [BridgeVLAN]
-        VLAN=20
-        [BridgeVLAN]
-        VLAN=30
-        [BridgeVLAN]
-        VLAN=40
-        [BridgeVLAN]
-        VLAN=50
-      '';
-
+    in
+    {
+      systemd.network.networks."10-lan-enp2s0" = mkLanPort "enp2s0";
+      systemd.network.networks."10-lan-enp3s0" = mkLanPort "enp3s0";
+      systemd.network.networks."10-lan-enp5s0" = mkLanPort "enp5s0";
     };
+
 
     # WAN (DHCP for testing; later you can change to static if you want)
     systemd.network.networks."wan" = {
