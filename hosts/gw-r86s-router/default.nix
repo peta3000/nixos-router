@@ -18,6 +18,9 @@ in
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "gw-r86s-router";
+  
+  # Basic services
+  services.openssh.enable = true;
 
   # Choose WAN interface:
   # - testing: enp1s0
