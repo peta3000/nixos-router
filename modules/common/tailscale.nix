@@ -5,6 +5,12 @@ with lib;
 {
   options.my.tailscale = {
     enable = mkEnableOption "Tailscale VPN";
+    
+    allowSsh = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Allow inbound SSH (22/tcp) via tailscale0 when networking.firewall is enabled.";
+    };    
 
     # Optional: mark this host as a router / infra node
     advertiseRoutes = mkOption {
@@ -38,6 +44,10 @@ with lib;
             "--advertise-routes=${concatStringsSep "," config.my.tailscale.advertiseRoutes}")
         ];
     };
+    # For "normal" hosts that use the standard NixOS firewall:
+    # open SSH on tailscale0 only when the firewall is enabled.
+    networking.firewall.interfaces.tailscale0.allowedTCPPorts =
+      mkIf (config.my.tailscale.allowSsh && (config.networking.firewall.enable or false)) [ 22 ];
   };
 }
 

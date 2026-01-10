@@ -21,6 +21,9 @@ in
   
   # Basic services
   services.openssh.enable = true;
+  
+  # Router uses a fully custom nftables ruleset
+  networking.firewall.enable = false;
 
   # Choose WAN interface:
   # - testing: enp1s0
@@ -48,7 +51,10 @@ in
   ];
 
   # Enable tailscale
-  my.tailscale.enable = true;
+  my.tailscale = {
+    enable = true;
+    tags = [ "tag:router" ];
+  };
 
   system.stateVersion = "25.11";
 
