@@ -56,6 +56,10 @@ in
         # Allow SSH management from VLAN1 (LAN)
         iifname $LAN tcp dport 22 accept
 
+        # TEMP: allow SSH from upstream LAN on WAN (tight scope)
+        # remove in production
+        iifname $WAN ip saddr 192.168.3.0/24 tcp dport 22 accept
+
         # Drop everything else (including inbound from WAN)
       }
 
