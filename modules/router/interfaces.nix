@@ -65,9 +65,13 @@ in
     };
 
     # L3 on VLAN 1 (bridge itself)
-    systemd.network.networks."${bridge}-vlan1" = {
+    systemd.network.networks."${bridge}-base" = {
       matchConfig.Name = bridge;
-      networkConfig.ConfigureWithoutCarrier = true;
+      networkConfig = {
+        ConfigureWithoutCarrier = true;
+        # Tell networkd that VLANs exist on this link:
+        VLAN = [ "${bridge}.20" "${bridge}.30" "${bridge}.40" "${bridge}.50" ];
+      };
       address = [ nets.vlans.lan.cidr ];
     };
 
