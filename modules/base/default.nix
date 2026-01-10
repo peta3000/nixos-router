@@ -34,7 +34,7 @@
   networking.networkmanager.enable = false;
 
   # Enable default NixOS firewall for all nosts by default
-  networking.firewall.enable = true;
+  networking.firewall.enable = lib.mkDefault true;
 
   # Keep Nix nice to work with
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
