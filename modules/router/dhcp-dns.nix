@@ -24,7 +24,7 @@ in
         "${b}.40"
         "${b}.50"
       ];
-      bind-interfaces = true;
+      bind-dynamic = true;
 
       # DHCP ranges per VLAN
       dhcp-range = [
