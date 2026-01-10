@@ -32,6 +32,12 @@ in
   # ];
   # networking.nameservers = [ "192.168.1.10" "192.168.1.1" ];
   
+  # User configuration
+  users.users.peter = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+  };
+
   system.stateVersion = "25.11";
 
 }
