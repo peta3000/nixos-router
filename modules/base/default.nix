@@ -1,0 +1,33 @@
+{ config, lib, pkgs, ... }:
+{
+  time.timeZone = "Europe/Zurich";
+
+  # Basic admin access
+  services.openssh.enable = true;
+  services.openssh.settings = {
+    PasswordAuthentication = false;
+    KbdInteractiveAuthentication = false;
+    PermitRootLogin = "no";
+  };
+
+  # Helpful tools on a router appliance
+  environment.systemPackages = with pkgs; [
+    vim
+    git
+    htop
+    tcpdump
+    ethtool
+    iproute2
+    nftables
+  ];
+
+  # Make sure systemd-networkd is used for the networking approach here.
+  networking.useNetworkd = true;
+  systemd.network.enable = true;
+
+  # Router appliances should generally avoid NetworkManager
+  networking.networkmanager.enable = false;
+
+  # Keep Nix nice to work with
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+}
