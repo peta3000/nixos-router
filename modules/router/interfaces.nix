@@ -60,8 +60,27 @@ in
 
     # LAN ports -> bridge (one .network per port, stable matching)
     systemd.network.networks."10-lan-enp2s0" = mkLanPort "enp2s0";
-    systemd.network.networks."10-lan-enp3s0" = mkLanPort "enp3s0";
     systemd.network.networks."10-lan-enp5s0" = mkLanPort "enp5s0";
+
+    # Make port enp3s0 (ETH2) the mgmt port, carrieng only VLAN 1
+    # untagged (PVID) and no tagged VLANs
+    systemd.network.networks."10-lan-enp3s0" = {
+      matchConfig.Name = "enp3s0";
+      networkConfig = {
+        Bridge = bridge;
+        ConfigureWithoutCarrier = true;
+        DHCP = "no";
+        IPv6AcceptRA = false;
+        LinkLocalAddressing = "no";
+      };
+      extraConfig = ''
+        [BridgeVLAN]
+        VLAN=1
+        PVID=1
+        EgressUntagged=1
+      '';
+    };
+
 
     # WAN (DHCP for testing; later you can change to static if you want)
     systemd.network.networks."wan" = {
