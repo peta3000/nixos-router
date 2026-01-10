@@ -96,18 +96,22 @@ in
     # Assign addresses to VLAN interfaces
     systemd.network.networks."vlan20" = {
       matchConfig.Name = "${bridge}.20";
+      networkConfig.ConfigureWithoutCarrier = true;
       address = [ nets.vlans.guest.cidr ];
     };
     systemd.network.networks."vlan30" = {
       matchConfig.Name = "${bridge}.30";
+      networkConfig.ConfigureWithoutCarrier = true;
       address = [ nets.vlans.iot.cidr ];
     };
     systemd.network.networks."vlan40" = {
       matchConfig.Name = "${bridge}.40";
+      networkConfig.ConfigureWithoutCarrier = true;
       address = [ nets.vlans.printer.cidr ];
     };
     systemd.network.networks."vlan50" = {
       matchConfig.Name = "${bridge}.50";
+      networkConfig.ConfigureWithoutCarrier = true;
       address = [ nets.vlans.dmz.cidr ];
     };
   };
