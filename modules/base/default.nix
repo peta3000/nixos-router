@@ -3,7 +3,7 @@
   time.timeZone = "Europe/Zurich";
   
   imports = [
-    ./common/tailscale.nix
+    ../common/tailscale.nix
     # other shared modules
   ];
 
