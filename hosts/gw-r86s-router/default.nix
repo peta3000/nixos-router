@@ -9,6 +9,13 @@ in
     ../../modules/base/default.nix
     ../../modules/router/default.nix
   ];
+  
+  # Basic system configuration
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  
+  # Use latest kernel.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "gw-r86s-router";
 
@@ -24,4 +31,7 @@ in
   #   { routeConfig.Gateway = "192.168.1.1"; }
   # ];
   # networking.nameservers = [ "192.168.1.10" "192.168.1.1" ];
+  
+  system.stateVersion = "25.11";
+
 }
