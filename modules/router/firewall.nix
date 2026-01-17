@@ -95,10 +95,10 @@ in {
         
         # Block Guest access to specific router/management IPs
         iifname $GUEST oifname $LAN ip daddr { 192.168.5.1, 192.168.5.110 } reject
-        iifname $GUEST oifname $PRINTER ip daddr { 192.168.40.1, 192.168.40.217 } tcp reject
+        iifname $GUEST oifname $PRINTER ip daddr { 192.168.40.1, 192.168.40.217 } reject with tcp reset
         
         # Block Guest access to printer admin interface
-        iifname $GUEST oifname $PRINTER ip daddr 192.168.40.230 tcp dport { 80, 443 } reject
+        iifname $GUEST oifname $PRINTER ip daddr 192.168.40.230 tcp dport { 80, 443 } reject with tcp reset
 
         # === IOT NETWORK POLICIES ===
         # IoT is isolated - only internet access (already allowed above)
