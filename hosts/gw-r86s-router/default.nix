@@ -14,7 +14,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   
-  # Use latest kernel.
+  # Use latest kernel for best SQM/CAKE support
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "gw-r86s-router";
@@ -29,6 +29,22 @@ in
   # - testing: enp1s0
   # - production: enp5s0d1
   router.wan.interface = nets.wan.testing;
+
+  # Enable SQM with CAKE for bufferbloat control
+  router.sqm = {
+    enable = true;
+    
+    # Set these to ~5-10% below your actual ISP speeds
+    # This is crucial for SQM to work effectively
+    upstreamBandwidth = "900mbit";   # Adjust for your upload speed
+    downstreamBandwidth = "900mbit"; # Adjust for your download speed
+    
+    # Adjust overhead based on your connection type:
+    # Ethernet: 14, VLAN: 18, PPPoE: 30, PPPoE+VLAN: 34
+    overheadBytes = 18;  # For VLAN tagged connection
+    
+    queueSize = "1514";  # MTU (1500) + overhead (14)
+  };
 
   # Optional: static addressing on WAN instead of DHCP (uncomment if needed)
   # systemd.network.networks."wan".networkConfig.DHCP = "no";
