@@ -82,9 +82,7 @@ in
             nat \
             wash \
             split-gso \
-            ack-filter-aggressive \
-            memlimit 32Mb \
-            fwmark 0x1/0x1
+            ack-filter-aggressive
           
           # Create ingress qdisc for downstream shaping
           ${pkgs.iproute2}/bin/tc qdisc add dev "$WAN_IFACE" handle ffff: ingress
