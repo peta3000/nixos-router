@@ -6,5 +6,6 @@
     ./nat.nix
     ./dhcp-dns.nix
     ./firewall.nix
+    ./sqm.nix
   ];
 }
