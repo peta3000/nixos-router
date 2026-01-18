@@ -102,8 +102,12 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 
 # Copy configuration to target
 echo "Copying configuration..."
-mkdir -p /mnt/etc/nixos
-cp -r /tmp/nix-config/* /mnt/etc/nixos/
+sudo mkdir -p /mnt/etc/nixos
+sudo cp -r /tmp/nix-config/* /mnt/etc/nixos/
+
+# Fix ownership of configuration files
+echo "Setting proper ownership..."
+sudo chown -R root:root /mnt/etc/nixos
 
 # Install NixOS
 echo "Installing NixOS..."
