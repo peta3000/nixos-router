@@ -1,9 +1,9 @@
-# disko configuration for R86S router - NVMe SSD testing
-# Usage: Replace NVME_DISK_ID with actual disk ID during installation
+# disko configuration for R86S router - eMMC production
+# Usage: Replace EMMC_DISK_ID with actual disk ID during installation
 {
   disko.devices = {
     disk.main = {
-      device = "/dev/disk/by-id/NVME_DISK_ID";
+      device = "/dev/disk/by-id/EMMC_DISK_ID";
       type = "disk";
       content = {
         type = "gpt";
@@ -43,7 +43,4 @@
   fileSystems."/boot" = {
     options = [ "umask=0077" ]; # Secure boot partition
   };
-  
-  # Swap configuration
-  swapDevices = [ ];  # disko handles swap device creation
 }

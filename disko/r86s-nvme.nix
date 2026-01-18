@@ -18,18 +18,9 @@
               mountpoint = "/boot";
               mountOptions = [ "defaults" "umask=0077" ];
             };
-          };
+          };      
           
-          # Swap partition - 4GB for router appliance
-          swap = {
-            size = "4G";
-            content = {
-              type = "swap";
-              randomEncryption = true; # Secure swap
-            };
-          };
-          
-          # Root partition - rest of disk
+          # Root partition - rest of disk (no swap partition needed)
           root = {
             size = "100%";
             content = {
