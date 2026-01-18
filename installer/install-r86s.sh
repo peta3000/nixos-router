@@ -79,12 +79,25 @@ git clone --branch "$REPO_BRANCH" "$REPO_URL" /tmp/nix-config
 # Prepare disko configuration
 echo "Preparing disk configuration..."
 DISKO_FILE="/tmp/nix-config/disko/$DISKO_CONFIG"
+
+# Verify disk exists
+echo "Checking for disk: /dev/disk/by-id/$DISK_ID"
+if [[ ! -e "/dev/disk/by-id/$DISK_ID" ]]; then
+    echo "ERROR: Disk /dev/disk/by-id/$DISK_ID not found!"
+    echo "Available disks:"
+    ls -la /dev/disk/by-id/ | grep -E "(nvme|mmc)"
+    exit 1
+fi
+
 sed -i "s|NVME_DISK_ID|$DISK_ID|g" "$DISKO_FILE"
 sed -i "s|EMMC_DISK_ID|$DISK_ID|g" "$DISKO_FILE"
 
+echo "Using disko config:"
+cat "$DISKO_FILE"
+
 # Format and mount disk
 echo "Formatting disk with disko..."
-nix --experimental-features "nix-command flakes" run github:nix-community/disko \
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko \
     -- --mode format,mount "$DISKO_FILE"
 
 # Copy configuration to target
@@ -94,7 +107,7 @@ cp -r /tmp/nix-config/* /mnt/etc/nixos/
 
 # Install NixOS
 echo "Installing NixOS..."
-nixos-install \
+sudo nixos-install \
   --root "/mnt" \
   --no-root-passwd \
   --flake "git+file:///mnt/etc/nixos#$HOSTNAME"
