@@ -1,10 +1,11 @@
-# disko configuration for R86S router - eMMC production
+# disko configuration for R86S router - eMMC production with complete wipe
 # Usage: Replace EMMC_DISK_ID with actual disk ID during installation
 {
   disko.devices = {
     disk.main = {
       device = "/dev/disk/by-id/EMMC_DISK_ID";
       type = "disk";
+      # Force complete wipe and repartition
       content = {
         type = "gpt";
         partitions = {
@@ -20,7 +21,7 @@
             };
           };
           
-          # Root partition - rest of disk (no swap partition needed)
+          # Root partition - rest of disk (no swap partition)
           root = {
             size = "100%";
             content = {
@@ -35,12 +36,15 @@
     };
   };
   
-  # Additional filesystem optimizations for router appliance
+  # Force complete disk wipe before partitioning
+  disko.enableDiskWipe = true;
+  
+  # Filesystem optimizations for router appliance
   fileSystems."/" = {
-    options = [ "noatime" "commit=60" ]; # Optimize for SSD and reduce writes
+    options = [ "noatime" "commit=60" ];
   };
   
   fileSystems."/boot" = {
-    options = [ "umask=0077" ]; # Secure boot partition
+    options = [ "umask=0077" ];
   };
 }

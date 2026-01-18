@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# R86S Router Installation Script
+# R86S Router Installation Script with Complete Disk Wipe
 set -e
 
 # Configuration
@@ -58,7 +58,7 @@ echo "Config: $DISKO_CONFIG"
 echo ""
 
 # Confirm installation
-read -p "This will ERASE the target disk. Continue? (y/N) " -n 1 -r
+read -p "This will COMPLETELY ERASE the target disk. Continue? (y/N) " -n 1 -r
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     echo "Installation cancelled."
@@ -94,6 +94,18 @@ sed -i "s|EMMC_DISK_ID|$DISK_ID|g" "$DISKO_FILE"
 
 echo "Using disko config:"
 cat "$DISKO_FILE"
+
+# Complete disk wipe before disko
+echo "=== COMPLETE DISK WIPE ==="
+echo "Wiping all existing partitions and data..."
+sudo wipefs -a "/dev/disk/by-id/$DISK_ID"
+echo "Zeroing partition table and first 100MB..."
+sudo dd if=/dev/zero of="/dev/disk/by-id/$DISK_ID" bs=1M count=100 status=progress
+echo "Disk wipe complete."
+echo ""
+
+# Wait a moment for kernel to recognize changes
+sleep 2
 
 # Format and mount disk
 echo "Formatting disk with disko..."
@@ -131,5 +143,7 @@ echo ""
 echo "=== Installation Complete! ==="
 echo "Next steps:"
 echo "1. Remove installation media"
-echo "2. Reboot: reboot"
-echo "3. SSH into new system: ssh root@router-ip"
+echo "2. Reboot: reboot" 
+echo "3. SSH into new system: ssh peter@router-ip"
+echo ""
+echo "The hardware-configuration.nix has been auto-generated for the clean install."
