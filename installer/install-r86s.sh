@@ -4,6 +4,7 @@ set -e
 
 # Configuration
 REPO_URL="https://github.com/peta3000/nixos-infra.git"
+REPO_BRANCH="restructure"  # Default to restructure branch
 TARGET_HOST="gw-r86s-router"
 
 # Disk IDs for R86S (update these)
@@ -19,11 +20,13 @@ while [[ $# -gt 0 ]]; do
     --disk) DISK_TARGET="$2"; shift 2 ;;
     --hostname) HOSTNAME="$2"; shift 2 ;;
     --repo) REPO_URL="$2"; shift 2 ;;
+    --branch) REPO_BRANCH="$2"; shift 2 ;;
     --help) 
-      echo "Usage: $0 [--disk nvme|emmc] [--hostname name] [--repo url]"
+      echo "Usage: $0 [--disk nvme|emmc] [--hostname name] [--repo url] [--branch branch]"
       echo "  --disk: Target disk (nvme for testing, emmc for production)"
       echo "  --hostname: System hostname (default: gw-r86s-router)"
       echo "  --repo: Git repository URL"
+      echo "  --branch: Git branch to use (default: restructure)"
       exit 0 ;;
     *) echo "Unknown option: $1"; exit 1 ;;
   esac
@@ -49,6 +52,7 @@ esac
 
 echo "=== R86S Router Installation ==="
 echo "Target: $HOSTNAME"
+echo "Repository: $REPO_URL (branch: $REPO_BRANCH)"
 echo "Disk: /dev/disk/by-id/$DISK_ID"
 echo "Config: $DISKO_CONFIG"
 echo ""
@@ -68,9 +72,9 @@ mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
 # Clone repository
-echo "Cloning configuration..."
+echo "Cloning configuration from branch '$REPO_BRANCH'..."
 rm -rf /tmp/nix-config
-git clone "$REPO_URL" /tmp/nix-config
+git clone --branch "$REPO_BRANCH" "$REPO_URL" /tmp/nix-config
 
 # Prepare disko configuration
 echo "Preparing disk configuration..."
