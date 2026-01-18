@@ -104,6 +104,7 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 echo "Copying configuration..."
 sudo mkdir -p /mnt/etc/nixos
 sudo cp -r /tmp/nix-config/* /mnt/etc/nixos/
+sudo cp -r /tmp/nix-config/.git /mnt/etc/nixos/ 2>/dev/null || echo "No .git directory found"
 
 # Fix ownership of configuration files
 echo "Setting proper ownership..."
@@ -111,10 +112,20 @@ sudo chown -R root:root /mnt/etc/nixos
 
 # Install NixOS
 echo "Installing NixOS..."
-sudo nixos-install \
-  --root "/mnt" \
-  --no-root-passwd \
-  --flake "git+file:///mnt/etc/nixos#$HOSTNAME"
+# Try git+file first, fall back to local directory if no .git
+if [[ -d "/mnt/etc/nixos/.git" ]]; then
+    echo "Using git flake..."
+    sudo nixos-install \
+      --root "/mnt" \
+      --no-root-passwd \
+      --flake "git+file:///mnt/etc/nixos#$HOSTNAME"
+else
+    echo "Using local directory flake..."
+    sudo nixos-install \
+      --root "/mnt" \
+      --no-root-passwd \
+      --flake "/mnt/etc/nixos#$HOSTNAME"
+fi
 
 echo ""
 echo "=== Installation Complete! ==="
