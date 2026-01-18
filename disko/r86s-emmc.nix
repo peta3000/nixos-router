@@ -1,9 +1,9 @@
-# disko configuration for R86S router - Internal eMMC (production)
-# Usage: Replace EMMC_DISK_ID with actual disk ID during installation
+# disko configuration for R86S router - NVMe SSD testing
+# Usage: Replace NVME_DISK_ID with actual disk ID during installation
 {
   disko.devices = {
     disk.main = {
-      device = "/dev/disk/by-id/EMMC_DISK_ID";
+      device = "/dev/disk/by-id/NVME_DISK_ID";
       type = "disk";
       content = {
         type = "gpt";
@@ -20,23 +20,14 @@
             };
           };
           
-          # Swap partition - 2GB (smaller for eMMC)
-          swap = {
-            size = "2G";
-            content = {
-              type = "swap";
-              randomEncryption = true;
-            };
-          };
-          
-          # Root partition - rest of disk (~114GB)
+          # Root partition - rest of disk (no swap partition needed)
           root = {
             size = "100%";
             content = {
               type = "filesystem";
               format = "ext4";
               mountpoint = "/";
-              mountOptions = [ "defaults" "noatime" "commit=120" ]; # Gentler on eMMC
+              mountOptions = [ "defaults" "noatime" ];
             };
           };
         };
@@ -44,12 +35,15 @@
     };
   };
   
-  # eMMC-specific optimizations
+  # Additional filesystem optimizations for router appliance
   fileSystems."/" = {
-    options = [ "noatime" "commit=120" "barrier=0" ]; # Reduce eMMC wear
+    options = [ "noatime" "commit=60" ]; # Optimize for SSD and reduce writes
   };
   
   fileSystems."/boot" = {
-    options = [ "umask=0077" ];
+    options = [ "umask=0077" ]; # Secure boot partition
   };
+  
+  # Swap configuration
+  swapDevices = [ ];  # disko handles swap device creation
 }

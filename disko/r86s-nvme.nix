@@ -52,7 +52,4 @@
   fileSystems."/boot" = {
     options = [ "umask=0077" ]; # Secure boot partition
   };
-  
-  # Swap configuration
-  swapDevices = [ ];  # disko handles swap device creation
 }

@@ -17,6 +17,13 @@ in
   # Use latest kernel for best SQM/CAKE support
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Swapfile configuration (optional - only if needed)
+  swapDevices = [
+    { device = "/swapfile"; size = 2048; } # 2GB swapfile
+  ];
+  # Alternative: No swap for router with sufficient RAM
+  # swapDevices = [ ];
+
   networking.hostName = "gw-r86s-router";
   
   # Basic services
