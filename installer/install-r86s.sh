@@ -3,7 +3,7 @@
 set -e
 
 # Configuration
-REPO_URL="https://github.com/YOUR_USERNAME/nix-infrastructure"
+REPO_URL="https://github.com/peta3000/nixos-infra.git"
 TARGET_HOST="gw-r86s-router"
 
 # Disk IDs for R86S (update these)
