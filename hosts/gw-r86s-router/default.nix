@@ -8,6 +8,7 @@ in
     ./hardware-configuration.nix
     ../../modules/base/default.nix
     ../../modules/router/default.nix
+    ../../modules/users/peter/age.nix
   ];
   
   # Basic system configuration
@@ -65,8 +66,17 @@ in
   users.users.peter = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
+    hashedPassword = "$6$Ow4aJ7o6SD3bCXn2$TGMU.eX.ifxTfDZpgvbBVnaUIsswE14fvHsl07hzbnNg6aQAn41U2LaoF3vSRLDXI92.yRziqlPKOuvfhwgIv1"
   };
   
+  # Allow sudo without password for users
+  security.sudo.extraRules = [
+    {
+      users = [ "peter" ];
+      commands = [ { command = "ALL"; options = [ "NOPASSWD" ]; } ];
+    }
+  ];
+
   # SSH keys for user peter
   users.users.peter.openssh.authorizedKeys.keys = [
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDEP5rIrh/WIZvCS8Tb4xkLtCDQAxs27Guxnxv0BQLs2iIe0kSmM+xXcvNCMSrmbNAzq6boSJsQ4PIVQCaSxNRrhcFH6Q1pY9y7MvbRqT72V++dQQtVKMkoVh4QQ5aobsml8KQx7QS6fuwEtMCE/8yoJPoyh1rqAqSS7/9MvA72Imr8LNdAkECDVkzrn3T8/gGJ9gEYFJrLpmm+lEzIU27P/x1BUQOpPbPMourkKdhSBgvr3LQCugEfzdUfskO8YCHmB+5KkCBXizpIH3QiN1TuZuPAT0ZacMAM1gZcZtEWr04K7hXdDgPCJzxDjfruoiOSqFvBYtdtECAb8AGicFqVuIGzIdYVP5pxWKwUR0LUXpSUKIqqF3gKc0HvSejxJ8NA79a2BS7ef7Plou4GmkfH+NdDti0iaS7pi6aqUTMVgGOvbDVTJT1L8clIdgLPomHL9kXae9EuiGHFSqpEC42FRFcmj30heWttG/OAo4Msbcs+ArruAskHJFN366rXRZM="
