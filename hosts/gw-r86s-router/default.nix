@@ -66,7 +66,6 @@ in
   users.users.peter = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    hashedPassword = "$6$Ow4aJ7o6SD3bCXn2$TGMU.eX.ifxTfDZpgvbBVnaUIsswE14fvHsl07hzbnNg6aQAn41U2LaoF3vSRLDXI92.yRziqlPKOuvfhwgIv1"
   };
   
   # Allow sudo without password for users
