@@ -1,4 +1,4 @@
 { ... }:
 {
-  age.identityPaths = [ "/home/peter/.ssh/id_ed_nixinfra" ];
+  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 }
