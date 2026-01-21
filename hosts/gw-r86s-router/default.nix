@@ -88,6 +88,13 @@ in
     tags = [ "tag:router" ];
   };
 
+  # Age test secret
+  age.secrets.test-secret = {
+    file = ../../secrets/test-secret.age;
+    owner = "peter";
+    group = "users";
+  };
+
   system.stateVersion = "25.11";
 
 }
