@@ -1,17 +1,17 @@
 let
-  # Convert your SSH public key to age format
-  # Run: ssh-to-age < ~/.ssh/id_ed_nixinfra.pub 
-  peter = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKMFYKNEteD8lN4R6n2yfw1oVet2Tb4FVBpP/qcy5h06 peter@pop-os";
-
-  # Add router host key after first boot:
-  # router = "age1yyyy...";
-
+  # Replace this with your age-formatted key (from ssh-to-age command)
+  peter = "age12r45hgrcfsxvfvnyyp3td54qunhhtwmfaf4ejdrv9h0kakrtwc3s42hjuc";
+  
   # Will add router host key after first boot
+  # router = "age1yyyyyyyy...";
+  
   users = [ peter ];
   # systems = [ router ];
   # all = users ++ systems;
 in
 {
-  # Add secrets here when needed, example:
-  # "some-password.age".publicKeys = users;
+  # Example secrets - uncomment and modify as needed
+  # "test-secret.age".publicKeys = users;
+  # "wifi-password.age".publicKeys = users;
+  # "api-key.age".publicKeys = users;
 }
