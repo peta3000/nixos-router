@@ -3,7 +3,7 @@
 {
   disko.devices = {
     disk.main = {
-      device = "/dev/disk/by-id/EMMC_DISK_ID";
+      device = "/dev/disk/by-id/Emmc-SCA128_0x06b27b7d";
       type = "disk";
       # Force complete wipe and repartition
       content = {
