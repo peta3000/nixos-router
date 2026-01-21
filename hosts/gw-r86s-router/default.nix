@@ -62,7 +62,7 @@ in
   # ];
   # networking.nameservers = [ "192.168.1.10" "192.168.1.1" ];
   
-  # User configuration
+  # User configuration .
   users.users.peter = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
