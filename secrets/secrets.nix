@@ -11,7 +11,7 @@ let
 in
 {
   # Example secrets - uncomment and modify as needed
-  # "test-secret.age".publicKeys = users;
+  "test-secret.age".publicKeys = users;
   # "wifi-password.age".publicKeys = users;
   # "api-key.age".publicKeys = users;
 }
