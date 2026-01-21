@@ -1,7 +1,7 @@
 let
   # Replace this with your age-formatted key (from ssh-to-age command)
   peter = "age12r45hgrcfsxvfvnyyp3td54qunhhtwmfaf4ejdrv9h0kakrtwc3s42hjuc";
-  router = "age1aje4thxc5cqatdsqeg3kvyhzfaldmc0mqyk9le6fe9pvxc5f4udss828k5";
+  router = "age1gvu0eduzs9c4ehnfa04583tg39y0narwjf7qwaym92wzlzlmkfhsw23twv";
   
   users = [ peter ];
   systems = [ router ];
