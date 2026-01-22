@@ -36,7 +36,7 @@ in
   # Choose WAN interface:
   # - testing: enp1s0
   # - production: enp5s0d1
-  router.wan.interface = nets.wan.testing;
+  router.wan.interface = nets.wan.production;
 
   # Enable SQM with CAKE for bufferbloat control
   router.sqm = {

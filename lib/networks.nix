@@ -5,7 +5,7 @@
   # - production: enp5s0d1 (SFP+)
   wan = {
     testing = "enp1s0";
-    production = "enp5s0d1";
+    production = "enp4s0d1";
   };
 
   lan = {
