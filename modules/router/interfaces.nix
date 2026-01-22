@@ -40,7 +40,7 @@ in
   # Host decides WAN interface via hosts/<name>/default.nix
   options.router.wan.interface = lib.mkOption {
     type = lib.types.str;
-    description = "Physical WAN interface name (e.g. enp1s0 for testing, enp5s0d1 for production).";
+    description = "Physical WAN interface name (e.g. enp1s0 for testing, enp4s0d1 for production).";
   };
 
   config = {
@@ -60,7 +60,7 @@ in
 
     # LAN ports -> bridge (one .network per port, stable matching)
     systemd.network.networks."10-lan-enp2s0" = mkLanPort "enp2s0";
-    systemd.network.networks."10-lan-enp5s0" = mkLanPort "enp5s0";
+    systemd.network.networks."10-lan-enp4s0" = mkLanPort "enp4s0";
 
     # Make port enp3s0 (ETH2) the mgmt port, carrieng only VLAN 1
     # untagged (PVID) and no tagged VLANs
