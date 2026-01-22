@@ -9,6 +9,7 @@ in
     ../../modules/base/default.nix
     ../../modules/router/default.nix
     ../../modules/users/peter/age.nix
+    ../../modules/common/network-tools.nix
   ];
   
   # Basic system configuration
@@ -94,6 +95,10 @@ in
     owner = "peter";
     group = "users";
   };
+
+  # Enable Network-Tools
+  my.networkTools.enable = true;
+
 
   system.stateVersion = "25.11";
 
