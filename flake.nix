@@ -7,7 +7,7 @@
     agenix.url = "github:ryantm/agenix";
   };
 
-  outputs = { nixpkgs, disko, agenix, ... }:
+  outputs = { self, nixpkgs, disko, agenix, ... }:
   {
     nixosConfigurations = {
       gw-r86s-router = nixpkgs.lib.nixosSystem {
@@ -21,6 +21,16 @@
       
       # Future hosts can be added here
       # monitoring-pi = nixpkgs.lib.nixosSystem { ... };
+
+      # <‑‑ NEW workstation host
+      ms-01-workstation = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/ms-01-workstation/default.nix   # <-- create this file
+          disko.nixosModules.disko                # for automated partitioning
+          agenix.nixosModules.default             # (optional) secret handling
+        ];
+      };
     };
   };
 }
