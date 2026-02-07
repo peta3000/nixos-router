@@ -12,8 +12,6 @@
   # The `disko` module expects a top‑level attribute set with a
   # `devices` map.  We only need one physical disk, called `os`.
   # -----------------------------------------------------------------
-  disko.enableDiskWipe = true;          # ← the only supported wipe flag
-
   disko.devices = {
     # The physical disk – replace the placeholder with the real by‑id path
     # when you import the module (the host file will set the variable).
