@@ -36,7 +36,7 @@
               type = "filesystem";
               format = "vfat";                  # FAT32 (required by UEFI)
               mountpoint = "/boot";             # NixOS expects boot here
-              fsLabel = "EFI";
+              label = "EFI";
             };
           };
 
@@ -50,7 +50,7 @@
               type = "filesystem";
               format = "ext4";                  # Simple, rock‑solid
               mountpoint = "/";                 # This becomes the system /
-              fsLabel = "disk-os-root";
+              label = "disk-os-root";
             };
           };
         };
