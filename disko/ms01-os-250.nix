@@ -12,7 +12,6 @@
   # The `disko` module expects a top‑level attribute set with a
   # `devices` map.  We only need one physical disk, called `os`.
   # -----------------------------------------------------------------
-  B
   disko.enableDiskWipe = true;          # ← the only supported wipe flag
 
   disko.devices = {
