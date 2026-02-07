@@ -13,7 +13,7 @@
   # 0️⃣  Import the GNOME remote‑desktop module
   # -----------------------------------------------------------------
   imports = [
-    "${inputs.nixpkgs}/nixos/modules/services/gnome/remote-desktop.nix"
+    "${pkgs.path}/nixos/modules/services/gnome/remote-desktop.nix"
   ];
 
   # -----------------------------------------------------------------
