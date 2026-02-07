@@ -23,7 +23,7 @@
             content = {
               type = "filesystem";
               format = "btrfs";                # Btrfs for compression + snapshots
-              fsLabel  = "DATA512";              # easy to reference later, correct btrfs syntax
+              # fsLabel  = "DATA512";             # unsupported in currently installed disco version
               mountpoint = "/persist";         # will be mounted at /persist
               mountOptions = [ "compress=zstd" "noatime" ];
             };
