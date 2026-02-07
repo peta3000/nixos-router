@@ -64,9 +64,18 @@
   # -----------------------------------------------------------------
   # 5️⃣  Remote‑desktop (VNC) – optional but handy for headless use
   # -----------------------------------------------------------------
-  services.xserver.displayManager.vnc.enable = true;
-  services.xserver.displayManager.vnc.passwordFile = "/persist/vncpasswd";   # store password on the data pool
-  services.xserver.displayManager.vnc.geometry = "1920x1080";
+  # services.xserver.displayManager.vnc.enable = true;
+  # services.xserver.displayManager.vnc.passwordFile = "/persist/vncpasswd";   # store password on the data pool
+  # services.xserver.displayManager.vnc.geometry = "1920x1080";
+
+  # ---switching to TigerVNC since other VNC package seems to have been dropped
+  services.xserver.displayManager.tigervnc = {
+    enable       = true;                     # loads the tigervnc module
+    geometry     = "1920x1080";
+    passwordFile = "/persist/vncpasswd";    # store the VNC password
+  # optional: change the VNC port (default 5900)
+  # port = 5901;
+  };
 
   # -----------------------------------------------------------------
   # 6️⃣  System packages you probably want on a workstation
