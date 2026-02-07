@@ -64,7 +64,7 @@
   # -----------------------------------------------------------------
   # 5️⃣  Remote‑desktop (VNC) – optional but handy for headless use
   # -----------------------------------------------------------------
-  services.xserver.displayManager.vns.enable = true;
+  services.xserver.displayManager.vnc.enable = true;
   services.xserver.displayManager.vnc.passwordFile = "/persist/vncpasswd";   # store password on the data pool
   services.xserver.displayManager.vnc.geometry = "1920x1080";
 
