@@ -80,7 +80,7 @@
 
     # Media / graphics
     gimp krita inkscape ffmpeg
-    blender kdenlive
+    blender
 
     # Audio / video
     mpv vlc
