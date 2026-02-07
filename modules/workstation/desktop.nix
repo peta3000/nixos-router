@@ -62,20 +62,14 @@
   ];
 
   # -----------------------------------------------------------------
-  # 5️⃣  Remote‑desktop (VNC) – optional but handy for headless use
+  # 5️⃣ Remote‑desktop (VNC) – GNOME Remote Desktop (works on X & Wayland)
   # -----------------------------------------------------------------
-  # services.xserver.displayManager.vnc.enable = true;
-  # services.xserver.displayManager.vnc.passwordFile = "/persist/vncpasswd";   # store password on the data pool
-  # services.xserver.displayManager.vnc.geometry = "1920x1080";
-
-  # ---switching to TigerVNC since other VNC package seems to have been dropped
-  services.xserver.displayManager.tigervnc = {
-    enable       = true;                     # loads the tigervnc module
-    geometry     = "1920x1080";
-    passwordFile = "/persist/vncpasswd";    # store the VNC password
-  # optional: change the VNC port (default 5900)
-  # port = 5901;
-  };
+  services.gnome.remoteDesktop.enable = true;
+  services.gnome.remoteDesktop.vnc.enable = true;
+  services.gnome.remoteDesktop.vnc.passwordFile = "/persist/vncpasswd";
+  services.gnome.remoteDesktop.vnc.geometry = "1920x1080";
+  # optional: enable RDP as well
+  # services.gnome.remoteDesktop.rdp.enable = true;
 
   # -----------------------------------------------------------------
   # 6️⃣  System packages you probably want on a workstation
