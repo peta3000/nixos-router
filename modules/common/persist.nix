@@ -10,14 +10,16 @@
 { config, lib, pkgs, ... }:
 
 {
+  # --- commented out the next section because disko is handling creation
+  # --- of filesystem /persist
   # -----------------------------------------------------------------
   # 1️⃣  Mount the Btrfs pool at /persist
   # -----------------------------------------------------------------
-  fileSystems."/persist" = {
-    device = "/dev/disk/by-id/nvme-Fanxiang_S500Pro_512GB_FXS500Pro251040783-part1";
-    fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" ];
-  };
+  # fileSystems."/persist" = {
+  #   device = "/dev/disk/by-id/nvme-Fanxiang_S500Pro_512GB_FXS500Pro251040783-part1";
+  #   fsType = "btrfs";
+  #   options = [ "compress=zstd" "noatime" ];
+  # };
 
   # -----------------------------------------------------------------
   # 2️⃣  Bind‑mount the mutable sub‑volumes.
