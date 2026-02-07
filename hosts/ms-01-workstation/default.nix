@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./hardware-configuration.nix                # generated on the *new* OS SSD
+    # ./hardware-configuration.nix                # do not import it, when using disco -> conflict with dev IDs (file: generated on the *new* OS SSD)
     ../../modules/base/default.nix               # SSH, firewall, common tools
     ../../modules/common/tailscale.nix           # optional VPN
     ../../modules/common/network-tools.nix       # iproute2, curl, etc.
@@ -19,6 +19,11 @@
   # Host‑specific values
   # -------------------------------------------------
   networking.hostName = "ms-01-workstation";
+
+  
+  # Boot loader – required because we no longer get it from hardware‑configuration.nix
+   boot.loader.systemd-boot.enable = true;
+   boot.loader.efi.canTouchEfiVariables = true;
 
   # If you want the router‑related modules (sysctl, SQM) you can import them as well:
   # imports = imports ++ [ ../../modules/router/sysctl.nix ../../modules/router/sqm.nix ];
