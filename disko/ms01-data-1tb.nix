@@ -34,7 +34,7 @@
             content = {
               type = "filesystem";
               format = "btrfs";
-              fsLabel  = "DATA1TB";
+              fsLabel  = "DATA1TB"; # with correct btrfs syntax
               mountpoint = "/archive";   # you can change the mountpoint later
               mountOptions = [ "compress=zstd" "noatime" ];
             };
