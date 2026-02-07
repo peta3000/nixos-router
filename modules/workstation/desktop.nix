@@ -10,13 +10,6 @@
 
 {
   # -----------------------------------------------------------------
-  # 0️⃣  Import the GNOME remote‑desktop module
-  # -----------------------------------------------------------------
-  imports = [
-    "${pkgs.path}/nixos/modules/services/gnome/remote-desktop.nix"
-  ];
-
-  # -----------------------------------------------------------------
   # 1️⃣  Enable the OpenGL stack and the GPU drivers
   # -----------------------------------------------------------------
   hardware.opengl.enable = true;                     # generic OpenGL support
@@ -71,10 +64,10 @@
   # -----------------------------------------------------------------
   # 5️⃣ Remote‑desktop (VNC) – GNOME Remote Desktop (works on X & Wayland)
   # -----------------------------------------------------------------
-  services.gnome.remoteDesktop.enable = true;
-  services.gnome.remoteDesktop.vnc.enable = true;
-  services.gnome.remoteDesktop.vnc.passwordFile = "/persist/vncpasswd";
-  services.gnome.remoteDesktop.vnc.geometry = "1920x1080";
+  # services.gnome.remoteDesktop.enable = true;
+  # services.gnome.remoteDesktop.vnc.enable = true;
+  # services.gnome.remoteDesktop.vnc.passwordFile = "/persist/vncpasswd";
+  # services.gnome.remoteDesktop.vnc.geometry = "1920x1080";
   # optional: enable RDP as well
   # services.gnome.remoteDesktop.rdp.enable = true;
 
