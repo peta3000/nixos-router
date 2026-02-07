@@ -64,9 +64,10 @@
   # -----------------------------------------------------------------
   # 5️⃣  Remote‑desktop (VNC) – optional but handy for headless use
   # -----------------------------------------------------------------
-  services.vncserver.enable = true;
-  services.vncserver.passwordFile = "/persist/vncpasswd";   # store password on the data pool
-  services.vncserver.geometry = "1920x1080";
+  services.xserver.enable = true;
+  services.xserver.displayManager.vns.enable = true;
+  services.xserver.displayManager.vnc.passwordFile = "/persist/vncpasswd";   # store password on the data pool
+  services.xserver.displayManager.vnc.geometry = "1920x1080";
 
   # -----------------------------------------------------------------
   # 6️⃣  System packages you probably want on a workstation
