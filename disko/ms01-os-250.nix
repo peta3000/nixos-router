@@ -32,11 +32,11 @@
           esp = {
             size = "512M";                     # 512 MiB is plenty for ESP
             type = "EF00";                     # EFI System Partition
+            label = "EFI";
             content = {
               type = "filesystem";
               format = "vfat";                  # FAT32 (required by UEFI)
               mountpoint = "/boot";             # NixOS expects boot here
-              label = "EFI";
             };
           };
 
@@ -46,11 +46,11 @@
           root = {
             size = "100%";                     # Fill the rest of the disk
             type = "8300";                     # Linux filesystem
+            label = "disk-os-root";
             content = {
               type = "filesystem";
               format = "ext4";                  # Simple, rock‑solid
               mountpoint = "/";                 # This becomes the system /
-              label = "disk-os-root";
             };
           };
         };
