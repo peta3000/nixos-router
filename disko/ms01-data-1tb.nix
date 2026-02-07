@@ -31,10 +31,10 @@
           data = {
             size = "100%";
             type = "8300";
+            label = "DATA1TB";
             content = {
               type = "filesystem";
               format = "btrfs";
-              # fsLabel  = "DATA1TB"; # unsupported in currently installed disco version
               mountpoint = "/archive";   # you can change the mountpoint later
               mountOptions = [ "compress=zstd" "noatime" ];
             };

@@ -20,10 +20,10 @@
           data = {
             size = "100%";
             type = "8300";
+            label = "DATA512";
             content = {
               type = "filesystem";
               format = "btrfs";                # Btrfs for compression + snapshots
-              # fsLabel  = "DATA512";             # unsupported in currently installed disco version
               mountpoint = "/persist";         # will be mounted at /persist
               mountOptions = [ "compress=zstd" "noatime" ];
             };
