@@ -46,7 +46,7 @@
           root = {
             size = "100%";                     # Fill the rest of the disk
             type = "8300";                     # Linux filesystem
-            label = "disk-os-root";
+            label = "NIXOS-ROOT";
             content = {
               type = "filesystem";
               format = "ext4";                  # Simple, rock‑solid
