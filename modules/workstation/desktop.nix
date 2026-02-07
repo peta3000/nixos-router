@@ -10,6 +10,15 @@
 
 {
   # -----------------------------------------------------------------
+  # 0️⃣  Import the GNOME remote‑desktop module
+  # -----------------------------------------------------------------
+  imports = [
+    # Adjust the path if you use a custom overlay; <nixpkgs> resolves to the
+    # nixpkgs version that the flake pulls in.
+    <nixpkgs>/nixos/modules/services/gnome/remote-desktop.nix
+  ];
+
+  # -----------------------------------------------------------------
   # 1️⃣  Enable the OpenGL stack and the GPU drivers
   # -----------------------------------------------------------------
   hardware.opengl.enable = true;                     # generic OpenGL support
