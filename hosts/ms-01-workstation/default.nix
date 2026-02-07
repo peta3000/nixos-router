@@ -1,6 +1,13 @@
 { config, lib, pkgs, ... }:
 
 {
+
+  # -------------------------------------------------
+  # Allow unfree packages (required for NVIDIA)
+  # -------------------------------------------------
+  nixpkgs.config.allowUnfree = true;
+
+
   imports = [
     # ./hardware-configuration.nix                # do not import it, when using disco -> conflict with dev IDs (file: generated on the *new* OS SSD)
     ../../modules/base/default.nix               # SSH, firewall, common tools
