@@ -47,6 +47,7 @@
             size = "100%";                     # Fill the rest of the disk
             type = "8300";                     # Linux filesystem
             label = "disk-os-root";
+            wipe = true;
             content = {
               type = "filesystem";
               format = "ext4";                  # Simple, rock‑solid
