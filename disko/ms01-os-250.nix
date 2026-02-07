@@ -12,6 +12,9 @@
   # The `disko` module expects a top‑level attribute set with a
   # `devices` map.  We only need one physical disk, called `os`.
   # -----------------------------------------------------------------
+  B
+  disko.enableDiskWipe = true;          # ← the only supported wipe flag
+
   disko.devices = {
     # The physical disk – replace the placeholder with the real by‑id path
     # when you import the module (the host file will set the variable).
@@ -19,8 +22,6 @@
       device = "/dev/disk/by-id/nvme-INTENSO_SSD_1642507006001001"; # 250 GB SSD
       type   = "disk";
 
-      # --- wipes whole disk before GPT table is layed out
-      wipe = true;
       # -----------------------------------------------------------------
       # Partition table: GPT (the default for modern UEFI systems)
       # -----------------------------------------------------------------
