@@ -86,7 +86,8 @@
     mpv vlc
 
     # Development / debugging (optional)
-    python3Full python3Packages.pip
+    python3                     # <-- new, default interpreter
+    python3Packages.pip         # pip for the default interpreter
     clang gcc
     neovim
   ];
