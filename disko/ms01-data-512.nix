@@ -23,7 +23,7 @@
             content = {
               type = "filesystem";
               format = "btrfs";                # Btrfs for compression + snapshots
-              label  = "DATA512";              # easy to reference later
+              fsLabel  = "DATA512";              # easy to reference later
               mountpoint = "/persist";         # will be mounted at /persist
               mountOptions = [ "compress=zstd" "noatime" ];
             };
