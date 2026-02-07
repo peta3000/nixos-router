@@ -6,16 +6,14 @@
 # `sway`) to your taste.  The example below uses GNOME + GDM, which
 # works “out of the box” for most users.
 
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # -----------------------------------------------------------------
   # 0️⃣  Import the GNOME remote‑desktop module
   # -----------------------------------------------------------------
   imports = [
-    # Choose one of the two forms (both are equivalent)
-    # "${inputs.nixpkgs}/nixos/modules/services/gnome/remote-desktop.nix"
-    inputs.nixpkgs.nixosModules.gnome-remote-desktop
+    "${inputs.nixpkgs}/nixos/modules/services/gnome/remote-desktop.nix"
   ];
 
   # -----------------------------------------------------------------
