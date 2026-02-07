@@ -19,6 +19,8 @@
       device = "/dev/disk/by-id/nvme-INTENSO_SSD_1642507006001001"; # 250 GB SSD
       type   = "disk";
 
+      # --- wipes whole disk before GPT table is layed out
+      wipe = true;
       # -----------------------------------------------------------------
       # Partition table: GPT (the default for modern UEFI systems)
       # -----------------------------------------------------------------
@@ -47,7 +49,6 @@
             size = "100%";                     # Fill the rest of the disk
             type = "8300";                     # Linux filesystem
             label = "disk-os-root";
-            wipe = true;
             content = {
               type = "filesystem";
               format = "ext4";                  # Simple, rock‑solid
