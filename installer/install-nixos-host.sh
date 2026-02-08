@@ -48,7 +48,7 @@ REPO_URL="https://github.com/peta3000/nixos-infra.git"
 REPO_BRANCH="restructure"
 TARGET_HOST="gw-r86s-router"           # default host
 DISK_TARGET="emmc"                     # old compatibility flag
-HOSTNAME="$TARGET_HOST"
+HOSTNAME=""                            # will be filled from the host-map or overridded from --hostname
 
 # -----------------------------------------------------------------
 #  Helper functions
@@ -64,6 +64,7 @@ Options:
   --repo <url>        Override the git repository URL.
   --branch <branch>   Override the git branch.
   --help              Show this help message.
+  (If omitted, the hostname is taken from the host‑map entry for the selected host.)
 
 Supported hosts:
 EOF
@@ -115,8 +116,14 @@ fi
 # Pull the concrete values
 DISK_ID="${HOST_MAP_DISK_ID[$TARGET_HOST]}"
 DISKO_CONFIG="${HOST_MAP_DISKO[$TARGET_HOST]}"
-# Allow an explicit override of the flake hostname; otherwise use the map.
-HOSTNAME="${HOSTNAME:-${HOST_MAP_HOSTNAME[$TARGET_HOST]}}"
+# -----------------------------------------------------------------
+# Determine the flake hostname.
+#   * If the user supplied --hostname, keep that value.
+#   * Otherwise take the hostname defined in the host‑map.
+# -----------------------------------------------------------------
+if [ -z "$HOSTNAME" ]; then
+  HOSTNAME="${HOST_MAP_HOSTNAME[$TARGET_HOST]}"
+fi
 
 # -----------------------------------------------------------------
 #  Show a short summary (helps avoid accidental wipes)
@@ -179,8 +186,16 @@ fi
 echo "=== COMPLETE DISK WIPE ==="
 sudo wipefs -a "/dev/disk/by-id/$DISK_ID"
 
+# --- option with dd: slower, will owerwrite with zeros------------
 # Zero‑fill the entire SSD.  No `count=` → writes until EOF.
-sudo dd if=/dev/zero of="/dev/disk/by-id/$DISK_ID" bs=1M status=progress
+# sudo dd if=/dev/zero of="/dev/disk/by-id/$DISK_ID" bs=1M status=progress
+
+# --- option with sgdisk: quicker, does not write zeros------------
+# Make sure sgdisk is available (install it if necessary)
+nix-env -f '<nixpkgs>' -iA gdisk   # <-- you can comment this out if gdisk is already on the system
+
+# Zap the entire partition table (fast, no data‑zeroing)
+sudo sgdisk --zap-all "/dev/disk/by-id/$DISK_ID"
 
 # Flush caches so the kernel sees the cleared device before disko.
 sync
