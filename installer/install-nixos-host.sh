@@ -192,7 +192,7 @@ sudo wipefs -a "/dev/disk/by-id/$DISK_ID"
 
 # --- option with sgdisk: quicker, does not write zeros------------
 # Make sure sgdisk is available (install it if necessary)
-nix-env -f '<nixpkgs>' -iA gdisk   # <-- you can comment this out if gdisk is already on the system
+nix-env -f '<nixpkgs>' -iA nixpkgs.gdisk   # <-- you can comment this out if gdisk is already on the system
 
 # Zap the entire partition table (fast, no data‑zeroing)
 sudo sgdisk --zap-all "/dev/disk/by-id/$DISK_ID"
