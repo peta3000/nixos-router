@@ -24,10 +24,10 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  fileSystems."/persist/var-lib" = 
+  fileSystems."/persist" = 
     { device = "/dev/disk/by-uuid/25848e25-31e3-4e53-9b91-d8faba3f7a96";
       fsType = "btrfs";
-      options = [ "subvol=var-lib" ];
+      options = [ "compress=zstd" "noatime" ];
     };
 
   swapDevices =
