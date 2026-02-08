@@ -178,7 +178,12 @@ fi
 # -----------------------------------------------------------------
 echo "=== COMPLETE DISK WIPE ==="
 sudo wipefs -a "/dev/disk/by-id/$DISK_ID"
-sudo dd if=/dev/zero of="/dev/disk/by-id/$DISK_ID" bs=1M count=100 status=progress
+
+# Zero‑fill the entire SSD.  No `count=` → writes until EOF.
+sudo dd if=/dev/zero of="/dev/disk/by-id/$DISK_ID" bs=1M status=progress
+
+# Flush caches so the kernel sees the cleared device before disko.
+sync
 
 sleep 2   # let the kernel see the changes
 
