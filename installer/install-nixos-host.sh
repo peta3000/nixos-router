@@ -191,11 +191,18 @@ sudo wipefs -a "/dev/disk/by-id/$DISK_ID"
 # sudo dd if=/dev/zero of="/dev/disk/by-id/$DISK_ID" bs=1M status=progress
 
 # --- option with sgdisk: quicker, does not write zeros------------
-# Make sure sgdisk is available (install it if necessary)
-nix-env -f '<nixpkgs>' -iA nixpkgs.gdisk   # <-- you can comment this out if gdisk is already on the system
-
-# Zap the entire partition table (fast, no data‑zeroing)
-sudo sgdisk --zap-all "/dev/disk/by-id/$DISK_ID"
+#  Ensure `sgdisk` (from the `gdisk` package) is present.
+#  We use a temporary nix-shell so we do not permanently install
+#  anything on the live system.
+if ! command -v sgdisk >/dev/null 2>&1; then
+  echo "sgdisk not found – invoking it via nix-shell (gdisk package)…"
+  # The `--run` argument runs the command inside the shell; we keep the
+  # `sudo` because the device is owned by root.
+  nix-shell -p gdisk --run "sudo sgdisk --zap-all \"/dev/disk/by-id/$DISK_ID\""
+else
+  echo "sgdisk already available – using the system binary"
+  sudo sgdisk --zap-all "/dev/disk/by-id/$DISK_ID"
+fi
 
 # Flush caches so the kernel sees the cleared device before disko.
 sync
