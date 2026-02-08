@@ -190,19 +190,14 @@ sudo wipefs -a "/dev/disk/by-id/$DISK_ID"
 # Zero‑fill the entire SSD.  No `count=` → writes until EOF.
 # sudo dd if=/dev/zero of="/dev/disk/by-id/$DISK_ID" bs=1M status=progress
 
-# --- option with sgdisk: quicker, does not write zeros------------
-#  Ensure `sgdisk` (from the `gdisk` package) is present.
-#  We use a temporary nix-shell so we do not permanently install
-#  anything on the live system.
-if ! command -v sgdisk >/dev/null 2>&1; then
-  echo "sgdisk not found – invoking it via nix-shell (gdisk package)…"
-  # The `--run` argument runs the command inside the shell; we keep the
-  # `sudo` because the device is owned by root.
-  nix-shell -p gdisk --run "sudo sgdisk --zap-all \"/dev/disk/by-id/$DISK_ID\""
-else
-  echo "sgdisk already available – using the system binary"
-  sudo sgdisk --zap-all "/dev/disk/by-id/$DISK_ID"
+# --- option without writing zeros: try blkdiscard first then  sgdisk------------
+echo "Attempting blkdiscard…"
+if ! sudo blkdiscard -f "/dev/disk/by-id/$DISK_ID"; then
+  echo "blkdiscard unsupported → falling back to sgdisk zap"
+  sudo nix run nixpkgs#gdisk -- \
+    sgdisk --zap-all "/dev/disk/by-id/$DISK_ID"
 fi
+
 
 # Flush caches so the kernel sees the cleared device before disko.
 sync
