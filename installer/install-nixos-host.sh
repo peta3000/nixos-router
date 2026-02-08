@@ -224,9 +224,9 @@ sudo chown -R root:root /mnt/etc/nixos
 # -----------------------------------------------------------------
 echo "Running nixos-install ..."
 if [[ -d "/mnt/etc/nixos/.git" ]]; then
-  sudo nixos-install --root /mnt --no-root-passwd --flake "git+file:///mnt/etc/nixos#$HOSTNAME"
+  sudo nixos-install --root /mnt --no-root-passwd --no-write-lock-file --flake "git+file:///mnt/etc/nixos#$HOSTNAME"
 else
-  sudo nixos-install --root /mnt --no-root-passwd --flake "/mnt/etc/nixos#$HOSTNAME"
+  sudo nixos-install --root /mnt --no-root-passwd --no-write-lock-file --flake "/mnt/etc/nixos#$HOSTNAME"
 fi
 
 # -----------------------------------------------------------------
